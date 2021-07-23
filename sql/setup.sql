@@ -1,0 +1,8 @@
+DROP TABLES IF EXISTS marbles;
+
+CREATE TABLE marbles (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    description TEXT
+);
