@@ -7,4 +7,23 @@ describe('demo routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
+
+  it('POST - creates a marble', async () => {
+    const earth = { 
+      name: 'Earth', 
+      cost: 5, 
+      descprtion: 'magnificant object, terrible inhabitants' };
+
+    const res = await (await 
+    request(app)
+      .post(',/api/v1/marbles'))
+      .send(earth);
+
+    expect(res.body).toEqual({
+      id:1,
+      ...earth,
+    });
+  });
+
+
 });
