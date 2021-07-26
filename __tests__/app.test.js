@@ -76,7 +76,7 @@ describe('marble routes', () => {
     expect(res.body).toEqual({ ...earth, description: 'a classic' });
   });
 
-  qit('PUT updates a single marble', async () => {
+  it('DELETE a single marble', async () => {
     const earth = await Marble.insert({ 
       name: 'Earth', 
       cost: 5, 
