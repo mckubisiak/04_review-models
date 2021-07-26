@@ -89,3 +89,26 @@ describe('marble routes', () => {
   });
 });
 
+
+
+describe('marble routes', () => {
+  beforeEach(() => {
+    return setup(pool);
+  });
+
+  it('POST creates a marble', async () => {
+    const ophiophaguHannah  = { 
+      name: 'King Cobra', 
+      body_length: 11, 
+      venomous: 'YES' 
+    };
+    const res = await request(app).post('/api/v1/snakes').send(ophiophaguHannah);
+    expect(res.body).toEqual({
+      id: '1',
+      ...ophiophaguHannah
+    });
+  });
+  
+});
+
+
