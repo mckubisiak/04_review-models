@@ -62,6 +62,18 @@ describe('marble routes', () => {
       expect(res.body).toEqual([earth, cateye, solidRed]);
     });
   });
+
+  it('PUT update a single marble', async () => {
+    const cateye = await Marble.insert({ 
+      name: 'Cateye', 
+      cost: 15, 
+      description: 'watch your back' 
+    });
+
+    const res = await request(app).put(`/api/v1/marbles/${earth.id}`).send({ cost: 12 });
+
+    
+      expect(res.body).toEqual({ ...cateye, cost: 12 });
 });
 
 
