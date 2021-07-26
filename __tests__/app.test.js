@@ -38,6 +38,30 @@ describe('marble routes', () => {
       ...earth
     });
   });
+
+  it('GET all marbles', async () => {
+    const earth = await Marble.insert({ 
+      name: 'Earth', 
+      cost: 5, 
+      description: 'magnificant object, terrible inhabitants' 
+    });
+    
+    const cateye = await Marble.insert({ 
+      name: 'Cateye', 
+      cost: 15, 
+      description: 'watch your back' 
+    });
+    
+    const solidRed = await Marble.insert({ 
+      name: 'Solid Red', 
+      cost: 11, 
+      description: 'stnadard red thru & thru' 
+    });
+    
+    return request(app).get('/api/v1/marbles').then((res) => {
+      expect(res.body).toEqual([earth, cateye, solidRed]);
+    });
+  });
 });
 
 
