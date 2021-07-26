@@ -13,6 +13,5 @@ CREATE TABLE snakes (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     body_length INTEGER NOT NULL,
-    venomous TEXT,
-    is_checked BOOLEAN
+    venomous TEXT
 );

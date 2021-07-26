@@ -91,12 +91,12 @@ describe('marble routes', () => {
 
 
 
-describe('marble routes', () => {
+describe('snake routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
-  it('POST creates a marble', async () => {
+  it('POST creates a snake', async () => {
     const ophiophaguHannah  = { 
       name: 'King Cobra', 
       body_length: 11, 
