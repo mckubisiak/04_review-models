@@ -85,7 +85,7 @@ describe('marble routes', () => {
 
     const res = await request(app).delete(`/api/v1/marbles/${earth.id}`);
 
-    expect(res.body).toEqual({ message: 'marble succuessfully removed' });
+    expect(res.body).toEqual({ message: `${earth.name} marble has been crushed` });
   });
 });
 
