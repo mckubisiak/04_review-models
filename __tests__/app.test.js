@@ -3,6 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 import Marble from '../lib/models/marble.js';
+import Snake from '../lib/models/snake.js';
 
 describe('marble routes', () => {
   beforeEach(() => {
@@ -103,6 +104,19 @@ describe('snake routes', () => {
       venomous: 'YES' 
     };
     const res = await request(app).post('/api/v1/snakes').send(ophiophaguHannah);
+    expect(res.body).toEqual({
+      id: '1',
+      ...ophiophaguHannah
+    });
+  });
+
+  it('GET a single snake', async () => {
+    const ophiophaguHannah  = await Snake.insert({ 
+      name: 'King Cobra', 
+      body_length: 11, 
+      venomous: 'YES' 
+    });
+    const res = await request(app).get(`/api/v1/snakes/${ophiophaguHannah.id}`);
     expect(res.body).toEqual({
       id: '1',
       ...ophiophaguHannah
