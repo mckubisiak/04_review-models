@@ -76,5 +76,16 @@ describe('marble routes', () => {
     expect(res.body).toEqual({ ...earth, description: 'a classic' });
   });
 
+  it('PUT updates a single marble', async () => {
+    const earth = await Marble.insert({ 
+      name: 'Earth', 
+      cost: 5, 
+      description: 'magnificant object, terrible inhabitants' 
+    });
+
+    const res = await request(app).delete(`/api/v1/marbles/${earth.id}`);
+
+    expect(res.body).toEqual({ message: 'marble succuessfully removed' });
+  });
 });
 
