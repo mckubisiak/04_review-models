@@ -5,4 +5,14 @@ CREATE TABLE marbles (
     name TEXT NOT NULL,
     cost INTEGER NOT NULL,
     description TEXT
-)
+);
+
+DROP TABLE IF EXISTS snakes;
+
+CREATE TABLE snakes (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    body_length INTEGER NOT NULL,
+    venomous TEXT,
+    is_checked BOOLEAN
+);
