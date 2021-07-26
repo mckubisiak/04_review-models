@@ -123,6 +123,29 @@ describe('snake routes', () => {
     });
   });
   
+  it('GET all snakes', async () => {
+    const ophiophaguHannah  = await Snake.insert({ 
+      name: 'King Cobra', 
+      body_length: 11, 
+      venomous: 'YES' 
+    });
+    
+    const agkistrodonContortrix  = await Snake.insert({ 
+      name: 'Copperhead', 
+      body_length: 3, 
+      venomous: 'YES' 
+    });
+
+    const corallusCaninus  = await Snake.insert({ 
+      name: 'King Cobra', 
+      body_length: 5, 
+      venomous: 'NO' 
+    });
+    
+    return request(app).get('/api/v1/snakes').then((res) => {
+      expect(res.body).toEqual([ophiophaguHannah, agkistrodonContortrix, corallusCaninus]);
+    });
+  });
 });
 
 
