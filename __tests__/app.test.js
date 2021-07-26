@@ -63,21 +63,18 @@ describe('marble routes', () => {
     });
   });
 
-  it('PUT update a single marble', async () => {
-    const cateye = await Marble.insert({ 
-      name: 'Cateye', 
-      cost: 15, 
-      description: 'watch your back' 
+  it('PUT updates a single marble', async () => {
+    const earth = await Marble.insert({ 
+      name: 'Earth', 
+      cost: 5, 
+      description: 'magnificant object, terrible inhabitants' 
     });
 
-    const res = await request(app).put(`/api/v1/marbles/${earth.id}`).send({ cost: 12 });
+    const res = await request(app).put(`/api/v1/marbles/${earth.id}`)
+      .send({ description: 'a classic' });
 
-    
-      expect(res.body).toEqual({ ...cateye, cost: 12 });
+    expect(res.body).toEqual({ ...earth, description: 'a classic' });
+  });
+
 });
-
-
-
-
-
 
