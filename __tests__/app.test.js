@@ -146,6 +146,17 @@ describe('snake routes', () => {
       expect(res.body).toEqual([ophiophaguHannah, agkistrodonContortrix, corallusCaninus]);
     });
   });
+
+  it('PUT updates a snake', async () => {
+    const agkistrodonContortrix  = await Snake.insert({ 
+      name: 'Copperhead', 
+      body_length: 3, 
+      venomous: 'YES' 
+    });
+    const res = await request(app).put(`/api/v1/snakes/${agkistrodonContortrix.id}`)
+      .send({ body_length: 4 });
+    expect(res.body).toEqual({ ...agkistrodonContortrix, body_length: 4 });
+  });
 });
 
 
