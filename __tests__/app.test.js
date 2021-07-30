@@ -4,7 +4,7 @@ import request from 'supertest';
 import app from '../lib/app.js';
 import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
-
+import Book from '../lib/models/book.js';
 
 describe('marble routes', () => {
   beforeEach(() => {
@@ -191,5 +191,19 @@ describe('book routes', () => {
     });
   });
   
+  it('GET a single book', async () => {
+    const gwtw = await Book.insert({ 
+      title: 'Gone with the Wind', 
+      genre: 'Historical Fiction', 
+      description: 'honestly its sad, lets not talk about it' 
+    });
+    const res = await request(app).get(`/api/v1/books/${gwtw.id}`);
+    
+    expect(res.body).toEqual({
+      id: '1',
+      ...gwtw
+    });
+  });
+
 });
 
