@@ -205,5 +205,42 @@ describe('book routes', () => {
     });
   });
 
+  it('GET all books', async () => {
+    const gwtw = await Book.insert({ 
+      title: 'Gone with the Wind', 
+      genre: 'Historical Fiction', 
+      description: 'honestly its sad, lets not talk about it' 
+    });
+    
+    const twg = await Book.insert({ 
+      title: 'The Westing Game', 
+      genre: 'Mystery', 
+      description: 'risky dinner party at rich guys will reading' 
+    });
+    
+    const cu = await Book.insert({ 
+      title: 'Captain Underpants', 
+      genre: 'Superhero', 
+      description: 'idk I just have fond memories of it as a kid' 
+    });
+    
+    return request(app).get('/api/v1/books').then((res) => {
+      expect(res.body).toEqual([gwtw, twg, cu]);
+    });
+  });
+
+  it('PUT updates a single book', async () => {
+    const gwtw = await Book.insert({ 
+      title: 'Gone with the Wind', 
+      genre: 'Historical Fiction', 
+      description: 'honestly its sad, lets not talk about it' 
+    });
+
+    const res = await request(app).put(`/api/v1/books/${gwtw.id}`)
+      .send({ description: 'a classic' });
+
+    expect(res.body).toEqual({ ...gwtw, description: 'a classic' });
+  });
+
 });
 
