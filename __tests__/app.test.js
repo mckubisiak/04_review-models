@@ -5,6 +5,7 @@ import app from '../lib/app.js';
 import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
 
+
 describe('marble routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -170,4 +171,25 @@ describe('snake routes', () => {
   
 });
 
+describe('book routes', () => {
+  beforeEach(() => {
+    return setup(pool);
+  });
+
+  it('POST creates a book', async () => {
+    const gwtw = { 
+      title: 'Gone with the Wind', 
+      genre: 'Historical Fiction', 
+      description: 'honestly its sad, lets not talk about it' 
+    };
+
+    const res = await request(app).post('/api/v1/books').send(gwtw);
+
+    expect(res.body).toEqual({
+      id: '1',
+      ...gwtw
+    });
+  });
+  
+});
 
