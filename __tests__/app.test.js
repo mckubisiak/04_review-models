@@ -157,6 +157,17 @@ describe('snake routes', () => {
       .send({ body_length: 4 });
     expect(res.body).toEqual({ ...agkistrodonContortrix, body_length: 4 });
   });
+
+  it('DELETE a single snake', async () => {
+    const agkistrodonContortrix  = await Snake.insert({ 
+      name: 'Copperhead', 
+      body_length: 3, 
+      venomous: 'YES' 
+    });
+    const res = await request(app).delete(`/api/v1/snakes/${agkistrodonContortrix.id}`);
+    expect(res.body).toEqual({ message: `${agkistrodonContortrix.name} has been vanquished` });
+  });
+  
 });
 
 
