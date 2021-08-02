@@ -24,3 +24,12 @@ CREATE TABLE books (
     genre TEXT NOT NULL,
     description TEXT
 );
+
+DROP TABLE IF EXISTS hooks;
+
+CREATE TABLE hooks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    length INTEGER NOT NULL
+);
