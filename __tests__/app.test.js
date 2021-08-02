@@ -252,7 +252,7 @@ describe('book routes', () => {
 
     const res = await request(app).delete(`/api/v1/books/${gwtw.id}`);
 
-    expect(res.body).toEqual({ message: `${gwtw.title}  has been burned` });
+    expect(res.body).toEqual({ message: `${gwtw.title} has been burned` });
   });
 
 });
