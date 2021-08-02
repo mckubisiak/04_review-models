@@ -15,3 +15,29 @@ CREATE TABLE snakes (
     body_length INTEGER NOT NULL,
     venomous TEXT
 );
+
+DROP TABLE IF EXISTS books;
+
+CREATE TABLE books (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL,
+    genre TEXT NOT NULL,
+    description TEXT
+);
+
+DROP TABLE IF EXISTS hooks;
+
+CREATE TABLE hooks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    length INTEGER NOT NULL
+);
+
+DROP TABLE IF EXISTS homeworks;
+
+CREATE TABLE homeworks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    completed BOOLEAN NOT NULL
+);
