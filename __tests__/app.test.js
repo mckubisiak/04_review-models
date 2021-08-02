@@ -242,5 +242,18 @@ describe('book routes', () => {
     expect(res.body).toEqual({ ...gwtw, description: 'a classic' });
   });
 
+
+  it('DELETE a single book', async () => {
+    const gwtw = await Book.insert({ 
+      title: 'Gone with the Wind', 
+      genre: 'Historical Fiction', 
+      description: 'honestly its sad, lets not talk about it' 
+    });
+
+    const res = await request(app).delete(`/api/v1/books/${gwtw.id}`);
+
+    expect(res.body).toEqual({ message: `${gwtw.title}  has been burned` });
+  });
+
 });
 
