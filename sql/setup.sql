@@ -33,3 +33,11 @@ CREATE TABLE hooks (
     type TEXT NOT NULL,
     length INTEGER NOT NULL
 );
+
+DROP TABLE IF EXISTS homework;
+
+CREATE TABLE homework (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    completed BOOLEAN NOT NULL
+);

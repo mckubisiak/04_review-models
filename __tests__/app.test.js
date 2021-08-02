@@ -6,6 +6,7 @@ import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
 import Book from '../lib/models/book.js';
 import Hook from '../lib/models/hook.js';
+// import Homework from '../lib/models/homework';
 
 describe('marble routes', () => {
   beforeEach(() => {
@@ -270,7 +271,6 @@ describe('book routes', () => {
   });
 });
 
-
 describe('hook routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -280,7 +280,7 @@ describe('hook routes', () => {
     const jHook = {
       name: 'J-Hook',
       type: 'Home',
-      length: 6
+      length: 6,
     };
 
     const res = await request(app).post('/api/v1/hooks').send(jHook);
@@ -295,7 +295,7 @@ describe('hook routes', () => {
     const jHook = await Hook.insert({
       name: 'J-Hook',
       type: 'Home',
-      length: 6
+      length: 6,
     });
     const res = await request(app).get(`/api/v1/hooks/${jHook.id}`);
 
@@ -309,19 +309,19 @@ describe('hook routes', () => {
     const jHook = await Hook.insert({
       name: 'J-Hook',
       type: 'Home',
-      length: 6
+      length: 6,
     });
 
     const eClaw = await Hook.insert({
       name: 'Eagle Claw',
       type: 'Fishing',
-      length: 1
+      length: 1,
     });
 
     const argHook = await Hook.insert({
       name: 'Pirate Hook',
       type: 'Misc',
-      length: 7
+      length: 7,
     });
 
     return request(app)
@@ -335,7 +335,7 @@ describe('hook routes', () => {
     const argHook = await Hook.insert({
       name: 'Pirate Hook',
       type: 'Misc',
-      length: 7
+      length: 7,
     });
     const res = await request(app)
       .put(`/api/v1/hooks/${argHook.id}`)
@@ -347,9 +347,30 @@ describe('hook routes', () => {
     const argHook = await Hook.insert({
       name: 'Pirate Hook',
       type: 'Misc',
-      length: 7
+      length: 7,
     });
     const res = await request(app).delete(`/api/v1/hooks/${argHook.id}`);
     expect(res.body).toEqual({ message: `${argHook.name} has been removed` });
   });
+});
+
+describe('homework routes', () => {
+  beforeEach(() => {
+    return setup(pool);
+  });
+
+  it('POST creates homework', async () => {
+    const lab1 = {
+      name: 'lab 1',
+      completed: true
+    };
+
+    const res = await request(app).post('/api/v1/homeworks').send(lab1);
+
+    expect(res.body).toEqual({
+      id: '1',
+      ...lab1,
+    });
+  });
+
 });
