@@ -291,4 +291,20 @@ describe('hook routes', () => {
     });
   });
 
+  it('GET a single hook', async () => {
+    const jHook = await Hook.insert({
+      name: 'J-Hook',
+      type: 'Home',
+      length: 6
+    });
+    const res = await request(app).get(`/api/v1/hooks/${jHook.id}`);
+
+    expect(res.body).toEqual({
+      id: '1',
+      ...jHook,
+    });
+  });
+
+ 
+
 });
