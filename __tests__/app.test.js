@@ -343,4 +343,13 @@ describe('hook routes', () => {
     expect(res.body).toEqual({ ...argHook, length: 9 });
   });
 
+  it('DELETE a single hook', async () => {
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7
+    });
+    const res = await request(app).delete(`/api/v1/hooks/${argHook.id}`);
+    expect(res.body).toEqual({ message: `${argHook.name} has been removed` });
+  });
 });
