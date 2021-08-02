@@ -305,6 +305,31 @@ describe('hook routes', () => {
     });
   });
 
- 
+  it('GET all hooks', async () => {
+    const jHook = await Hook.insert({
+      name: 'J-Hook',
+      type: 'Home',
+      length: 6
+    });
+
+    const eClaw = await Hook.insert({
+      name: 'Eagle Claw',
+      type: 'Fishing',
+      length: 1
+    });
+
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7
+    });
+
+    return request(app)
+      .get('/api/v1/hooks')
+      .then((res) => {
+        expect(res.body).toEqual([jHook, eClaw, argHook]);
+      });
+  });
+
 
 });
