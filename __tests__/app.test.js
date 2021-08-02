@@ -6,7 +6,6 @@ import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
 import Book from '../lib/models/book.js';
 import Hook from '../lib/models/hook.js';
-import homeworks from '../lib/controllers/homeworks.js';
 import Homework from '../lib/models/homework.js';
 
 describe('marble routes', () => {
@@ -360,7 +359,7 @@ describe('homework routes', () => {
     return setup(pool);
   });
 
-  it('POST creates assignmentsgac', async () => {
+  it('POST creates an assignment', async () => {
     const lab1 = {
       name: 'lab 1',
       completed: true,
