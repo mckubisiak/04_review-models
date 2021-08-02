@@ -331,5 +331,16 @@ describe('hook routes', () => {
       });
   });
 
+  it('PUT updates a single hook', async () => {
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7
+    });
+    const res = await request(app)
+      .put(`/api/v1/hooks/${argHook.id}`)
+      .send({ length: 9 });
+    expect(res.body).toEqual({ ...argHook, length: 9 });
+  });
 
 });
