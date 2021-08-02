@@ -6,7 +6,7 @@ import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
 import Book from '../lib/models/book.js';
 import Hook from '../lib/models/hook.js';
-// import Homework from '../lib/models/homework.js';
+import Homework from '../lib/models/homework.js';
 
 describe('marble routes', () => {
   beforeEach(() => {
@@ -359,7 +359,7 @@ describe('homework routes', () => {
     return setup(pool);
   });
 
-  it('POST creates homework', async () => {
+  it('POST creates an assignment', async () => {
     const lab1 = {
       name: 'lab 1',
       completed: true,
@@ -373,65 +373,61 @@ describe('homework routes', () => {
     });
   });
 
-  it('GET a single hook', async () => {
-    const jHook = await Hook.insert({
-      name: 'J-Hook',
-      type: 'Home',
-      length: 6,
+  it('GET a single assignments', async () => {
+    const lab1 = await Homework.insert({
+      name: 'lab 1',
+      completed: true,
     });
-    const res = await request(app).get(`/api/v1/hooks/${jHook.id}`);
+    const res = await request(app).get(`/api/v1/homeworks/${lab1.id}`);
 
     expect(res.body).toEqual({
       id: '1',
-      ...jHook,
+      ...lab1,
     });
   });
 
-  it('GET all hooks', async () => {
-    const jHook = await Hook.insert({
-      name: 'J-Hook',
-      type: 'Home',
-      length: 6,
+  it('GET all assignments', async () => {
+    const lab1 = await Homework.insert({
+      name: 'lab 1',
+      completed: true,
     });
 
-    const eClaw = await Hook.insert({
-      name: 'Eagle Claw',
-      type: 'Fishing',
-      length: 1,
+    const lab4 = await Homework.insert({
+      name: 'lab 4',
+      completed: false,
     });
 
-    const argHook = await Hook.insert({
-      name: 'Pirate Hook',
-      type: 'Misc',
-      length: 7,
+    const lab8 = await Homework.insert({
+      name: 'lab 8',
+      completed: false,
     });
 
     return request(app)
-      .get('/api/v1/hooks')
+      .get('/api/v1/homeworks')
       .then((res) => {
-        expect(res.body).toEqual([jHook, eClaw, argHook]);
+        expect(res.body).toEqual([lab1, lab4, lab8]);
       });
   });
 
-  it('PUT updates a single hook', async () => {
-    const argHook = await Hook.insert({
-      name: 'Pirate Hook',
-      type: 'Misc',
-      length: 7,
+  it('PUT updates a single homeworks', async () => {
+    const lab4 = await Homework.insert({
+      name: 'lab 4',
+      completed: false,
     });
+
     const res = await request(app)
-      .put(`/api/v1/hooks/${argHook.id}`)
-      .send({ length: 9 });
-    expect(res.body).toEqual({ ...argHook, length: 9 });
+      .put(`/api/v1/homeworks/${lab4.id}`)
+      .send({ completed: true });
+    expect(res.body).toEqual({ ...lab4, completed: true });
   });
 
-  it('DELETE a single hook', async () => {
-    const argHook = await Hook.insert({
-      name: 'Pirate Hook',
-      type: 'Misc',
-      length: 7,
+  it('DELETE a single homeworks', async () => {
+    const lab4 = await Homework.insert({
+      name: 'lab 4',
+      completed: true,
     });
-    const res = await request(app).delete(`/api/v1/hooks/${argHook.id}`);
-    expect(res.body).toEqual({ message: `${argHook.name} has been removed` });
+
+    const res = await request(app).delete(`/api/v1/homeworks/${lab4.id}`);
+    expect(res.body).toEqual({ message: `Ruby ate my ${lab4.name} homework` });
   });
 });
