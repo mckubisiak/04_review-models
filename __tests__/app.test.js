@@ -6,7 +6,7 @@ import Marble from '../lib/models/marble.js';
 import Snake from '../lib/models/snake.js';
 import Book from '../lib/models/book.js';
 import Hook from '../lib/models/hook.js';
-// import Homework from '../lib/models/homework';
+// import Homework from '../lib/models/homework.js';
 
 describe('marble routes', () => {
   beforeEach(() => {
@@ -362,7 +362,7 @@ describe('homework routes', () => {
   it('POST creates homework', async () => {
     const lab1 = {
       name: 'lab 1',
-      completed: true
+      completed: true,
     };
 
     const res = await request(app).post('/api/v1/homeworks').send(lab1);
@@ -373,4 +373,65 @@ describe('homework routes', () => {
     });
   });
 
+  it('GET a single hook', async () => {
+    const jHook = await Hook.insert({
+      name: 'J-Hook',
+      type: 'Home',
+      length: 6,
+    });
+    const res = await request(app).get(`/api/v1/hooks/${jHook.id}`);
+
+    expect(res.body).toEqual({
+      id: '1',
+      ...jHook,
+    });
+  });
+
+  it('GET all hooks', async () => {
+    const jHook = await Hook.insert({
+      name: 'J-Hook',
+      type: 'Home',
+      length: 6,
+    });
+
+    const eClaw = await Hook.insert({
+      name: 'Eagle Claw',
+      type: 'Fishing',
+      length: 1,
+    });
+
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7,
+    });
+
+    return request(app)
+      .get('/api/v1/hooks')
+      .then((res) => {
+        expect(res.body).toEqual([jHook, eClaw, argHook]);
+      });
+  });
+
+  it('PUT updates a single hook', async () => {
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7,
+    });
+    const res = await request(app)
+      .put(`/api/v1/hooks/${argHook.id}`)
+      .send({ length: 9 });
+    expect(res.body).toEqual({ ...argHook, length: 9 });
+  });
+
+  it('DELETE a single hook', async () => {
+    const argHook = await Hook.insert({
+      name: 'Pirate Hook',
+      type: 'Misc',
+      length: 7,
+    });
+    const res = await request(app).delete(`/api/v1/hooks/${argHook.id}`);
+    expect(res.body).toEqual({ message: `${argHook.name} has been removed` });
+  });
 });

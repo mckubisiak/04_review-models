@@ -34,9 +34,9 @@ CREATE TABLE hooks (
     length INTEGER NOT NULL
 );
 
-DROP TABLE IF EXISTS homework;
+DROP TABLE IF EXISTS homeworks;
 
-CREATE TABLE homework (
+CREATE TABLE homeworks (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     completed BOOLEAN NOT NULL
